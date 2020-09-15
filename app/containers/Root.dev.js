@@ -1,21 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Provider} from 'react-redux';
-import {Route} from 'react-router-dom';
-import {ConnectedRouter} from 'react-router-redux';
+import {Route, BrowserRouter} from 'react-router-dom';
 
 import App from '../components/App';
 import DevTools from './DevTools';
 
-export default function Root({store, history}) {
+export default function Root({ store }) {
     return (
         <Provider store={store}>
-            <div>
-                <ConnectedRouter history={history}>
-                    <Route path="/" component={App}/>
-                </ConnectedRouter>
+                <BrowserRouter>
+                    <Route path="/">
+                        <App />
+                    </Route>
+                </BrowserRouter>
                 <DevTools />
-            </div>
         </Provider>
     );
 }

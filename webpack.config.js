@@ -5,12 +5,11 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  mode: 'development',
   devtool: 'eval-source-map',
 
   entry: [
     'babel-polyfill',
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
     'react-hot-loader/patch',
     path.join(__dirname, 'app/index.js'),
   ],
@@ -28,7 +27,7 @@ module.exports = {
       filename: 'index.html',
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
     }),
