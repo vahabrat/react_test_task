@@ -9,12 +9,12 @@ import DevTools from './DevTools';
 export default function Root({ store }) {
     return (
         <Provider store={store}>
-                <BrowserRouter>
-                    <Route path="/">
-                        <App />
-                    </Route>
-                </BrowserRouter>
-                <DevTools />
+            <BrowserRouter>
+                <Route path="/">
+                    <App />
+                </Route>
+            </BrowserRouter>
+            <DevTools />
         </Provider>
     );
 }
