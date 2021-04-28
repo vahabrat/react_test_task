@@ -1,14 +1,12 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
+import { stockTickerReducer } from './stockTickerReducer.js';
+
 const createRootReducer = (history) => combineReducers({
     router: connectRouter(history),
-    stockTicker: (state = {}, action) => {
-        switch (action.type) {
-            default:
-                return state;
-        }
-    }
+
+    stockTicker: stockTickerReducer,
 });
 
 export default createRootReducer;

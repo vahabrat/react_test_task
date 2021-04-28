@@ -3,9 +3,9 @@
 ////
 // CONFIGURATION SETTINGS
 ////
-var FETCH_INTERVAL = 5000;
+var FETCH_INTERVAL = 1000;
 var PRETTY_PRINT_JSON = true;
-
+var timer;
 ////
 // START
 ////
@@ -45,21 +45,31 @@ function getQuote(socket, ticker) {
   socket.emit(ticker, PRETTY_PRINT_JSON ? JSON.stringify(quote, null, 4) : JSON.stringify(quote));
 }
 
+
+
+
+
 function trackTicker(socket, ticker) {
   console.log('track Ticker');
+  console.log(FETCH_INTERVAL);
+
 
   // run the first time immediately
   getQuote(socket, ticker);
 
   // every N seconds
-  var timer = setInterval(function() {
+  timer = setInterval(function() {
     getQuote(socket, ticker);
   }, FETCH_INTERVAL);
 
   socket.on('disconnect', function() {
+    console.log('disconnect');
     clearInterval(timer);
   });
 }
+
+
+
 
 var app = express();
 app.use(cors());
@@ -71,6 +81,8 @@ io.set('origins', '*:*');
 app.get('/', function(req, res) {
   res.sendfile(__dirname + '/index.html');
 });
+
+
 
 io.sockets.on('connection', function(socket) {
   socket.on('ticker', function(ticker) {
